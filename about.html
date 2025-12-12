@@ -3,53 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О нас - Кондитерская "Сладкая радость"</title>
-    <link rel="stylesheet" href="style.css">
+    <title>О магазине - Sweet Delights</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Та же шапка, что и на главной -->
-    <header class="header">
+    <header>
         <div class="container">
-            <nav class="navbar">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-birthday-cake"></i>
-                    <span>Сладкая радость</span>
-                </a>
+            <nav>
+                <a href="index.html" class="logo">Sweet Delights</a>
                 <ul class="nav-menu">
                     <li><a href="index.html">Главная</a></li>
-                    <li><a href="about.html">О нас</a></li>
-                    <li><a href="products.html">Товары</a></li>
+                    <li><a href="about.html">О магазине</a></li>
+                    <li><a href="products.html">Продукция</a></li>
                     <li><a href="order.html">Заказ и доставка</a></li>
-                    <li><a href="contact.html">Контакты</a></li>
                 </ul>
-                <div class="cart-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </div>
             </nav>
         </div>
     </header>
-    <section class="about-details">
-        <div class="container">
-            <h1>О нашей кондитерской</h1>
-            <div class="about-story">
-                <h2>Наша история</h2>
-                <p>Кондитерская "Сладкая радость" была основана в 2010 году Анной Ивановой, профессиональным кондитером с многолетним опытом. Начав с небольшой домашней кухни, сегодня мы имеем собственную кондитерскую и команду из 15 профессионалов.</p>
+
+    <main class="container">
+        <h1>О нашем магазине</h1>
+        
+        <section class="about-section">
+            <div class="certificate">
+                <h2><i class="fas fa-file-certificate"></i> Справка о магазине</h2>
+                <div class="certificate-content">
+                    <p><strong>Название:</strong> Кондитерская "Sweet Delights"</p>
+                    <p><strong>Год основания:</strong> 2015</p>
+                    <p><strong>Владелец:</strong> ИП Петрова Анна Сергеевна</p>
+                    <p><strong>ИНН:</strong> 7701234567</p>
+                    <p><strong>ОГРНИП:</strong> 315774600123456</p>
+                    <p><strong>Адрес:</strong> Москва, ул. Сладкая, 15</p>
+                    <p><strong>Режим работы:</strong> Ежедневно с 9:00 до 21:00</p>
+                    <p><strong>Телефон:</strong> +7 (495) 123-45-67</p>
+                    <p><strong>Email:</strong> info@sweetdelights.ru</p>
+                    <p><strong>Сайт:</strong> <a href="https://sweetdelights.ru" target="_blank">www.sweetdelights.ru</a></p>
+                </div>
+            </div>
+
+            <div class="about-info">
+                <h2><i class="fas fa-store"></i> Наша история</h2>
+                <p>Кондитерская "Sweet Delights" была основана в 2015 году с любовью к десертам и стремлением создавать уникальные сладости. Наша команда профессиональных кондитеров с многолетним опытом создает настоящие произведения искусства.</p>
                 
-                <h2>Наши принципы</h2>
+                <h3>Наши принципы:</h3>
                 <ul>
-                    <li>Используем только натуральные ингредиенты</li>
-                    <li>Каждый десерт готовим с любовью</li>
-                    <li>Соблюдаем традиционные рецепты</li>
-                    <li>Постоянно развиваемся и учимся новому</li>
+                    <li>Использование только натуральных ингредиентов</li>
+                    <li>Индивидуальный подход к каждому заказу</li>
+                    <li>Соблюдение всех санитарных норм</li>
+                    <li>Постоянное развитие и обучение</li>
                 </ul>
-                
-                <h2>Награды и достижения</h2>
-                <p>• Лучшая кондитерская Москвы 2022</p>
-                <p>• Золотая медаль "Кондитерское искусство" 2021</p>
-                <p>• Экологический сертификат качества</p>
+
+                <h3>Наши награды:</h3>
+                <ul>
+                    <li>Лучшая кондитерская Москвы 2020</li>
+                    <li>Золотая медаль "Вкус качества" 2021</li>
+                    <li>Диплом "Народный бренд" 2022</li>
+                </ul>
+            </div>
+
+            <div class="location">
+                <h2><i class="fas fa-map-marked-alt"></i> Как нас найти</h2>
+                <div class="map">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p><strong>Адрес:</strong> Москва, ул. Сладкая, 15</p>
+                        <p><strong>Ближайшее метро:</strong> Сладковская</p>
+                        <p><strong>Часы работы:</strong> 9:00 - 21:00 (без выходных)</p>
+                        <p><strong>Парковка:</strong> Бесплатная парковка на 10 мест</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@sweetdelights.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Сладкая, 15</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul>
+                        <li><a href="about.html">О магазине</a></li>
+                        <li><a href="products.html">Каталог</a></li>
+                        <li><a href="order.html">Доставка</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </section>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
