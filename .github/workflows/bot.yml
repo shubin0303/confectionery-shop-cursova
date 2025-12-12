@@ -1,16 +1,16 @@
 name: Telegram Bot Runner
 
 on:
-  workflow_dispatch:  # Для ручного запуска
+  workflow_dispatch:
   push:
     branches: [ main ]
   schedule:
-    - cron: '*/30 * * * *'  # Перезапуск каждые 30 минут
+    - cron: '0 */6 * * *'
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # Максимальное время работы
+    timeout-minutes: 30
     
     steps:
     - name: 📥 Клонирование репозитория
@@ -24,10 +24,39 @@ jobs:
     - name: 📦 Установка зависимостей
       run: npm install
       
-    - name: 🤖 Запуск Telegram бота
+    - name: 🐳 Установка ngrok (для туннеля)
       run: |
-        echo "🚀 Запуск бота в $(date)"
-        echo "Токен установлен: ${#TELEGRAM_BOT_TOKEN} символов"
-        node bot.js
+        wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+        unzip -o ngrok-stable-linux-amd64.zip
+        ./ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+        
+    - name: 🤖 Запуск бота и туннеля
+      run: |
+        # Запускаем бот в фоне
+        node bot.js &
+        BOT_PID=$!
+        
+        # Запускаем ngrok туннель
+        ./ngrok http 3000 > /dev/null &
+        NGROK_PID=$!
+        
+        # Ждем запуска ngrok
+        sleep 5
+        
+        # Получаем публичный URL
+        NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+        
+        if [ -z "$NGROK_URL" ] || [ "$NGROK_URL" = "null" ]; then
+          echo "❌ Не удалось получить ngrok URL"
+          exit 1
+        fi
+        
+        echo "✅ Ngrok туннель: $NGROK_URL"
+        echo "🌐 Вебхук URL: $NGROK_URL/bot${{ secrets.TELEGRAM_BOT_TOKEN }}"
+        
+        # Ждем завершения работы
+        wait $BOT_PID
+        
       env:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
