@@ -1,73 +1,200 @@
-// Функция для загрузки товаров из JSON
-async function loadProducts() {
-    try {
-        const response = await fetch('data/products.json');
-        const products = await response.json();
-        displayProducts(products);
-    } catch (error) {
-        console.error('Ошибка загрузки товаров:', error);
-    }
-}
-
-// Функция для отображения товаров
-function displayProducts(products) {
-    const container = document.getElementById('products-container');
-    if (!container) return;
-
-    container.innerHTML = products.map(product => `
-        <div class="product-card">
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-                <p class="product-price">${product.price} ₽</p>
-                <p class="${product.inStock ? 'in-stock' : 'out-of-stock'}">
-                    ${product.inStock ? 'В наличии' : 'Нет в наличии'}
-                </p>
-                ${product.inStock ? 
-                    `<button onclick="orderProduct('${product.id}')" class="btn">Заказать</button>` : 
-                    '<p style="color: #999;">Скоро будет</p>'
-                }
-            </div>
-        </div>
-    `).join('');
-}
-
-// Функция для заказа товара
-function orderProduct(productId) {
-    sessionStorage.setItem('selectedProduct', productId);
-    window.location.href = 'order.html';
-}
-
-// Инициализация при загрузке страницы
+// Основные скрипты для всех страниц
 document.addEventListener('DOMContentLoaded', function() {
-    // Проверяем, есть ли контейнер для товаров
-    if (document.getElementById('products-container')) {
-        loadProducts();
-    }
+    // Инициализация
+    initializePage();
     
-    // Инициализация карты на странице контактов
-    if (document.getElementById('contact-map')) {
-        initMap();
-    }
+    // Обработчики событий
+    setupEventListeners();
 });
 
-// Функция инициализации карты
-function initMap() {
-    const mapContainer = document.getElementById('contact-map');
-    if (!mapContainer) return;
-
-    // Координаты магазина (пример)
-    const shopLocation = { lat: 55.7558, lng: 37.6173 }; // Москва
+function initializePage() {
+    // Инициализация карты
+    initMap();
     
-    const mapHtml = `
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3737897172285!2d37.61763331593076!3d55.75582600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a5a738fa419%3A0x7c347d506b52311f!2z0JzQvtGB0LrQstCw!5e0!3m2!1sru!2sru!4v1647851234567!5m2!1sru!2sru"
-            class="map"
-            allowfullscreen=""
-            loading="lazy">
-        </iframe>
+    // Инициализация формы консультации
+    initConsultationForm();
+}
+
+function setupEventListeners() {
+    // Обработчик для формы консультации
+    const consultationForm = document.getElementById('consultationForm');
+    if (consultationForm) {
+        consultationForm.addEventListener('submit', handleConsultationSubmit);
+    }
+    
+    // Мобильное меню
+    setupMobileMenu();
+}
+
+function initMap() {
+    // Это заглушка для карты
+    // В реальном проекте здесь будет код Google Maps API или Яндекс.Карт
+    console.log('Карта инициализирована');
+}
+
+function initConsultationForm() {
+    const form = document.getElementById('consultationForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Простая валидация
+            const name = form.querySelector('input[type="text"]').value;
+            const phone = form.querySelector('input[type="tel"]').value;
+            
+            if (!name || !phone) {
+                alert('Пожалуйста, заполните все обязательные поля');
+                return;
+            }
+            
+            // Здесь можно добавить отправку на сервер
+            alert('Спасибо за заявку! Мы свяжемся с вами в течение 15 минут.');
+            form.reset();
+        });
+    }
+}
+
+function handleConsultationSubmit(e) {
+    e.preventDefault();
+    
+    // Получаем данные формы
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    // В реальном проекте здесь будет отправка на сервер
+    console.log('Данные формы:', data);
+    
+    // Показываем сообщение об успехе
+    alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+    
+    // Очищаем форму
+    form.reset();
+    
+    return false;
+}
+
+function setupMobileMenu() {
+    // Создаем кнопку для мобильного меню
+    const nav = document.querySelector('nav');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (window.innerWidth <= 768 && navMenu) {
+        const menuToggle = document.createElement('button');
+        menuToggle.className = 'menu-toggle';
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+        
+        nav.appendChild(menuToggle);
+        
+        // Добавляем стили для мобильного меню
+        const style = document.createElement('style');
+        style.textContent = `
+            .menu-toggle {
+                display: none;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            @media (max-width: 768px) {
+                .menu-toggle {
+                    display: block;
+                }
+                
+                .nav-menu {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: #ff6b8b;
+                    flex-direction: column;
+                    padding: 1rem;
+                    z-index: 1000;
+                }
+                
+                .nav-menu.show {
+                    display: flex;
+                }
+                
+                .nav-menu li {
+                    width: 100%;
+                }
+                
+                .nav-menu a {
+                    display: block;
+                    padding: 0.5rem 1rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Функция для показа уведомлений
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    // Стили для уведомления
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+        color: white;
+        border-radius: 5px;
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
     `;
     
-    mapContainer.innerHTML = mapHtml;
+    // Добавляем анимацию
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    document.body.appendChild(notification);
+    
+    // Удаляем уведомление через 5 секунд
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
+// Функция для форматирования цены
+function formatPrice(price) {
+    return new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: 'RUB',
+        minimumFractionDigits: 0
+    }).format(price);
+}
+
+// Экспорт функций для использования в других файлах
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        showNotification,
+        formatPrice,
+        handleConsultationSubmit
+    };
 }
