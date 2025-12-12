@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог - Sweet Delights</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">Sweet Delights</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О магазине</a></li>
+                    <li><a href="products.html">Продукция</a></li>
+                    <li><a href="order.html">Заказ и доставка</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Наша продукция</h1>
+        <p class="subtitle">Более 50 видов десертов ручной работы</p>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Все товары</button>
+            <button class="filter-btn" data-category="cake">Торты</button>
+            <button class="filter-btn" data-category="pastry">Пирожные</button>
+            <button class="filter-btn" data-category="cupcake">Капкейки</button>
+            <button class="filter-btn" data-category="macaron">Макаруны</button>
+        </div>
+
+        <div class="products-grid" id="productsContainer">
+            <!-- Продукты загружаются через JavaScript -->
+        </div>
+
+        <div class="order-info">
+            <h2>Как заказать?</h2>
+            <p>Выберите понравившиеся десерты и <a href="order.html">оформите заказ</a></p>
+            <p>Минимальная сумма заказа: 1000 рублей</p>
+            <p>Доставка по Москве в течение 2-4 часов</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@sweetdelights.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Сладкая, 15</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="products-script.js"></script>
+</body>
+</html>
