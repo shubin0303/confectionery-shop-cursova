@@ -3,113 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кондитерская "Сладкая радость"</title>
+    <title>Кондитерский магазин "Сладости"</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Шапка сайта -->
-    <header class="header">
+    <header>
         <div class="container">
-            <nav class="navbar">
-                <a href="index.html" class="logo">
+            <nav>
+                <div class="logo">
                     <i class="fas fa-birthday-cake"></i>
-                    <span>Сладкая радость</span>
-                </a>
-                <ul class="nav-menu">
+                    <h1>Кондитерский магазин "Сладости"</h1>
+                </div>
+                <ul class="nav-links">
                     <li><a href="index.html">Главная</a></li>
-                    <li><a href="about.html">О нас</a></li>
                     <li><a href="products.html">Товары</a></li>
                     <li><a href="order.html">Заказ и доставка</a></li>
+                    <li><a href="about.html">О магазине</a></li>
                     <li><a href="contact.html">Контакты</a></li>
                 </ul>
-                <div class="cart-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </div>
             </nav>
         </div>
     </header>
 
-    <!-- Герой секция -->
-    <section class="hero">
-        <div class="container">
-            <h1>Вкуснейшие десерты ручной работы</h1>
-            <p>Свежая выпечка каждый день. Только натуральные ингредиенты</p>
-            <a href="products.html" class="btn">Посмотреть каталог</a>
-        </div>
-    </section>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Самые вкусные десерты в городе</h2>
+                <p>Торты, пирожные, десерты ручной работы из натуральных ингредиентов</p>
+                <a href="products.html" class="btn">Смотреть каталог</a>
+            </div>
+        </section>
 
-    <!-- Популярные товары -->
-    <section class="featured-products">
-        <div class="container">
-            <h2>Популярные десерты</h2>
-            <div class="products-grid" id="featured-products">
-                <!-- Товары будут загружены через JavaScript -->
+        <section class="features">
+            <div class="container">
+                <div class="feature">
+                    <i class="fas fa-truck"></i>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставим ваш заказ в течение 2-х часов</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-award"></i>
+                    <h3>Высокое качество</h3>
+                    <p>Только свежие и натуральные ингредиенты</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-percentage"></i>
+                    <h3>Скидки</h3>
+                    <p>Постоянным клиентам скидка 10%</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Информация о магазине -->
-    <section class="about-preview">
+    <footer>
         <div class="container">
-            <h2>Наша кондитерская</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Мы создаем уникальные десерты с 2010 года. Каждый торт и пирожное - это произведение искусства, созданное с любовью и вниманием к деталям.</p>
-                    <a href="about.html" class="btn-secondary">Подробнее о нас</a>
-                </div>
-                <div class="about-image">
-                    <img src="images/shop-interior.jpg" alt="Интерьер кондитерской">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Подвал -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Кондитерская "Сладкая радость"</h3>
-                    <p>Создаем сладкие моменты с 2010 года</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Контакты</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Сладкая, 15</p>
-                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
-                    <p><i class="fas fa-envelope"></i> info@sladray.ru</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Часы работы</h3>
-                    <p>Пн-Пт: 8:00 - 21:00</p>
-                    <p>Сб-Вс: 9:00 - 20:00</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Кондитерская "Сладкая радость". Все права защищены.</p>
-            </div>
+            <p>&copy; 2024 Кондитерский магазин "Сладости". Все права защищены.</p>
+            <p>Телефон: +7 (XXX) XXX-XX-XX | Email: info@confectionery-shop.ru</p>
         </div>
     </footer>
 
-    <!-- Корзина -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <h3>Корзина</h3>
-            <div class="cart-items" id="cartItems">
-                <!-- Товары в корзине -->
-            </div>
-            <div class="cart-total">
-                <p>Итого: <span id="cartTotal">0</span> руб.</p>
-            </div>
-            <div class="cart-actions">
-                <button class="btn" onclick="checkout()">Оформить заказ</button>
-                <button class="btn-secondary" onclick="closeCart()">Продолжить покупки</button>
-            </div>
-        </div>
-    </div>
-
     <script src="script.js"></script>
-    <script src="database.js"></script>
 </body>
 </html>
