@@ -3,119 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заказ и доставка - Кондитерская "Сладкая радость"</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Заказ и доставка - Sweet Delights</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Шапка -->
-    <header class="header">
+    <header>
         <div class="container">
-            <nav class="navbar">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-birthday-cake"></i>
-                    <span>Сладкая радость</span>
-                </a>
+            <nav>
+                <a href="index.html" class="logo">Sweet Delights</a>
                 <ul class="nav-menu">
                     <li><a href="index.html">Главная</a></li>
-                    <li><a href="about.html">О нас</a></li>
-                    <li><a href="products.html">Товары</a></li>
+                    <li><a href="about.html">О магазине</a></li>
+                    <li><a href="products.html">Продукция</a></li>
                     <li><a href="order.html">Заказ и доставка</a></li>
-                    <li><a href="contact.html">Контакты</a></li>
                 </ul>
-                <div class="cart-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </div>
             </nav>
         </div>
     </header>
-    <section class="order-info">
-        <div class="container">
-            <h1>Оформление заказа</h1>
-            
-            <div class="delivery-info">
-                <h2>Условия доставки</h2>
-                <div class="delivery-options">
-                    <div class="option">
-                        <h3>Самовывоз</h3>
-                        <p>Бесплатно</p>
-                        <p>г. Москва, ул. Сладкая, 15</p>
-                        <p>Время: 8:00-21:00</p>
-                    </div>
-                    <div class="option">
-                        <h3>Курьерская доставка</h3>
-                        <p>300 руб. в пределах МКАД</p>
-                        <p>Бесплатно при заказе от 3000 руб.</p>
-                        <p>Время: 9:00-20:00</p>
-                    </div>
-                    <div class="option">
-                        <h3>Доставка по России</h3>
-                        <p>Рассчитывается индивидуально</p>
-                        <p>Срок: 3-7 дней</p>
-                        <p>Упаковка в термоконтейнер</p>
-                    </div>
-                </div>
+
+    <main class="container">
+        <h1>Заказ и доставка</h1>
+        
+        <div class="order-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Выберите десерты</h3>
+                <p>Перейдите в <a href="products.html">каталог</a> и выберите понравившиеся десерты</p>
             </div>
-            
-            <div class="order-form">
-                <h2>Форма заказа</h2>
-                <form onsubmit="submitOrder(event)">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>ФИО *</label>
-                            <input type="text" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Телефон *</label>
-                            <input type="tel" name="phone" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Адрес доставки</label>
-                        <input type="text" name="address">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Дата доставки</label>
-                            <input type="date" name="delivery-date" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Время доставки</label>
-                            <select name="delivery-time" required>
-                                <option value="10:00-12:00">10:00-12:00</option>
-                                <option value="12:00-14:00">12:00-14:00</option>
-                                <option value="14:00-16:00">14:00-16:00</option>
-                                <option value="16:00-18:00">16:00-18:00</option>
-                                <option value="18:00-20:00">18:00-20:00</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Способ оплаты</label>
-                        <select name="payment-method" required>
-                            <option value="cash">Наличные при получении</option>
-                            <option value="card">Карта при получении</option>
-                            <option value="online">Онлайн оплата</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Комментарий к заказу</label>
-                        <textarea name="comments" rows="3"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn">Оформить заказ</button>
-                </form>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Свяжитесь с нами</h3>
+                <p>Позвоните по телефону <strong>+7 (495) 123-45-67</strong> или напишите в WhatsApp/Telegram</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Оформите заказ</h3>
+                <p>Укажите адрес доставки и удобное время</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Получите заказ</h3>
+                <p>Наслаждайтесь свежими десертами в указанное время</p>
             </div>
         </div>
-    </section>
+
+        <div class="delivery-info">
+            <h2>Условия доставки</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Зона доставки</h3>
+                    <p>Вся Москва в пределах МКАД</p>
+                    <p>Московская область (+500 руб.)</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Время доставки</h3>
+                    <p>Ежедневно с 10:00 до 22:00</p>
+                    <p>Срочная доставка: 2 часа (+300 руб.)</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Стоимость</h3>
+                    <p>Бесплатно при заказе от 3000 руб.</p>
+                    <p>До 3000 руб.: 300 рублей</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-gift"></i>
+                    <h3>Оплата</h3>
+                    <p>Наличными курьеру</p>
+                    <p>Банковской картой онлайн</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2>Оставить заявку на консультацию</h2>
+            <form id="consultationForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Телефон" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Ваш вопрос или пожелания" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn">Отправить заявку</button>
+            </form>
+        </div>
+
+        <div class="important-info">
+            <h2>Важная информация</h2>
+            <ul>
+                <li>Минимальная сумма заказа: 1000 рублей</li>
+                <li>Предзаказ тортов: за 3 дня</li>
+                <li>Бесплатная упаковка в подарок</li>
+                <li>Возможность самовывоза по адресу: ул. Сладкая, 15</li>
+                <li>Скидка 10% на первый заказ</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты для заказов</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fab fa-whatsapp"></i> +7 (999) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> orders@sweetdelights.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Часы работы</h3>
+                    <p>Прием заказов: 9:00 - 20:00</p>
+                    <p>Доставка: 10:00 - 22:00</p>
+                    <p>Без выходных</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
