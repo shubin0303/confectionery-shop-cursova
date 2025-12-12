@@ -27,7 +27,7 @@ const CATEGORIES = {
 };
 
 // Инициализация бота
-const TOKEN = 'YOUR_BOT_TOKEN'; // Замените на ваш токен
+const TOKEN = '8391855356:AAH60-FveCFiorVqG0aWLsK3MGj51zoD9n0'; // Замените на ваш токен
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 console.log('Бот кондитерской запущен...');
