@@ -1,0 +1,36 @@
+name: Telegram Bot Runner
+
+on:
+  workflow_dispatch:  # Для ручного запуска
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '*/30 * * * *'  # Перезапуск каждые 30 минут
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Клонирование репозитория
+      uses: actions/checkout@v4
+      
+    - name: ⚙️ Установка Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 📦 Установка зависимостей
+      run: npm install
+      
+    - name: 🤖 Запуск Telegram бота
+      run: node bot.js
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        
+    - name: 🔄 Автоперезапуск при падении
+      if: always()
+      run: |
+        echo "Бот завершил работу в $(date)"
+        echo "Следующий запуск через 30 минут"
