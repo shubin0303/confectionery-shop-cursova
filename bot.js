@@ -1,16 +1,23 @@
 const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
 const productsDatabase = require('./database.js');
 
-// === ВНИМАНИЕ! НАСТРОЙКА ТОКЕНА ===
-// НАШ ТОКЕН БУДЕТ АВТОМАТИЧЕСКИ ПОДСТАВЛЕН ИЗ СЕКРЕТОВ GITHUB
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const PORT = process.env.PORT || 3000;
+const WEBHOOK_URL = process.env.WEBHOOK_URL || 'https://your-app-name.herokuapp.com';
 
 // Проверка токена
 if (!TOKEN) {
-    console.error('❌ ОШИБКА: Токен бота не найден!');
-    console.error('Добавьте секрет TELEGRAM_BOT_TOKEN в GitHub Secrets');
+    console.error('❌ Токен бота не найден!');
     process.exit(1);
 }
+
+// Инициализация Express
+const app = express();
+app.use(express.json());
+
+// Инициализация бота без polling
+const bot = new TelegramBot(TOKEN);
 
 // Конфигурация магазина
 const SHOP_INFO = {
@@ -32,21 +39,6 @@ const CATEGORIES = {
     macaron: "🥯 Макаруны",
     all: "📋 Все товары"
 };
-
-// Инициализация бота с polling
-const bot = new TelegramBot(TOKEN, { 
-    polling: {
-        interval: 300,
-        autoStart: true,
-        params: {
-            timeout: 10
-        }
-    }
-});
-
-console.log('✅ Бот кондитерской запущен через GitHub Actions!');
-console.log(`🤖 Имя бота: ${SHOP_INFO.name}`);
-console.log(`📞 Телефон: ${SHOP_INFO.phone}`);
 
 // Главное меню
 const mainMenu = {
@@ -84,6 +76,9 @@ bot.onText(/\/start/, (msg) => {
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
+
+    // Пропускаем служебные команды
+    if (text.startsWith('/')) return;
 
     if (text === '🏪 О магазине') {
         bot.sendMessage(chatId, 
@@ -174,7 +169,8 @@ bot.on('callback_query', async (callbackQuery) => {
                     }
                 });
             } catch (e) {
-                bot.sendMessage(chatId, text, {
+                console.error('Ошибка отправки фото:', e.message);
+                bot.sendMessage(chatId, text + `\n\n📸 [Фото товара](${product.image})`, {
                     parse_mode: 'Markdown',
                     reply_markup: {
                         inline_keyboard: [[
@@ -192,19 +188,118 @@ bot.on('callback_query', async (callbackQuery) => {
         });
     }
     
+    // Ответ на callback запрос (убирает часики)
     await bot.answerCallbackQuery(callbackQuery.id);
 });
 
 // Обработка ошибок
 bot.on('polling_error', (error) => {
-    console.error('Polling error:', error.code);
+    console.error('Polling error:', error.code, error.message);
 });
 
 bot.on('webhook_error', (error) => {
     console.error('Webhook error:', error);
 });
 
-// Экспорт для тестов
-if (typeof module !== 'undefined') {
-    module.exports = { bot, SHOP_INFO };
+// ========== ВЕБХУК ЭНДПОИНТ ==========
+app.post(`/bot${TOKEN}`, (req, res) => {
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+});
+
+// Добавляем тестовый endpoint для проверки
+app.get('/', (req, res) => {
+    res.json({
+        status: 'online',
+        service: 'Telegram Confectionery Bot',
+        shop: SHOP_INFO.name,
+        endpoints: {
+            webhook: `/bot${TOKEN.substring(0, 15)}...`,
+            health: '/health'
+        }
+    });
+});
+
+app.get('/health', (req, res) => {
+    res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+// Настройка вебхука
+async function setupWebhook() {
+    try {
+        console.log('🔄 Настройка вебхука...');
+        
+        // Удаляем старый вебхук
+        await bot.deleteWebHook();
+        console.log('✅ Старый вебхук удален');
+        
+        // Устанавливаем новый
+        const webhookUrl = `${WEBHOOK_URL}/bot${TOKEN}`;
+        console.log(`🌐 Установка вебхука на: ${webhookUrl}`);
+        
+        const webhookResult = await bot.setWebHook(webhookUrl);
+        
+        if (webhookResult) {
+            console.log('✅ Вебхук установлен успешно');
+            
+            // Проверяем информацию о вебхуке
+            const webhookInfo = await bot.getWebHookInfo();
+            console.log('📊 Информация о вебхуке:');
+            console.log(`   URL: ${webhookInfo.url || 'не установлен'}`);
+            console.log(`   Ожидает обновлений: ${webhookInfo.pending_update_count || 0}`);
+            console.log(`   Последняя ошибка: ${webhookInfo.last_error_message || 'нет'}`);
+        } else {
+            console.log('❌ Ошибка установки вебхука');
+        }
+    } catch (error) {
+        console.error('❌ Ошибка при настройке вебхука:', error.message);
+    }
 }
+
+// Запуск сервера
+app.listen(PORT, async () => {
+    console.log(`🚀 Сервер запущен на порту ${PORT}`);
+    console.log(`🤖 Токен бота: ${TOKEN.substring(0, 15)}...`);
+    console.log(`🏪 Магазин: ${SHOP_INFO.name}`);
+    console.log(`📞 Телефон: ${SHOP_INFO.phone}`);
+    
+    // Получаем информацию о боте
+    try {
+        const botInfo = await bot.getMe();
+        console.log(`✅ Бот: @${botInfo.username} (${botInfo.first_name})`);
+        
+        // Настраиваем вебхук
+        if (WEBHOOK_URL && WEBHOOK_URL !== 'https://your-app-name.herokuapp.com') {
+            await setupWebhook();
+        } else {
+            console.log('⚠️  WEBHOOK_URL не установлен, использую polling');
+            bot.startPolling();
+        }
+    } catch (error) {
+        console.error('❌ Ошибка при получении информации о боте:', error.message);
+        console.error('Проверьте правильность токена!');
+        
+        // Пробуем запустить polling
+        console.log('🔄 Пробую запустить polling...');
+        bot.startPolling();
+    }
+});
+
+// Корневой endpoint для проверки
+app.get('/', (req, res) => {
+    res.send(`
+        <html>
+            <head><title>Кондитерский бот</title></head>
+            <body>
+                <h1>🤖 Кондитерский Telegram бот работает!</h1>
+                <p>Магазин: ${SHOP_INFO.name}</p>
+                <p>Телефон: ${SHOP_INFO.phone}</p>
+                <p>Статус: <strong>Online</strong></p>
+                <p><a href="/health">Проверить здоровье сервиса</a></p>
+            </body>
+        </html>
+    `);
+});
+
+// Экспорт для тестов
+module.exports = app;
