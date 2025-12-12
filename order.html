@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ и доставка - Кондитерская "Сладкая радость"</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-birthday-cake"></i>
+                    <span>Сладкая радость</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="products.html">Товары</a></li>
+                    <li><a href="order.html">Заказ и доставка</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="order-info">
+        <div class="container">
+            <h1>Оформление заказа</h1>
+            
+            <div class="delivery-info">
+                <h2>Условия доставки</h2>
+                <div class="delivery-options">
+                    <div class="option">
+                        <h3>Самовывоз</h3>
+                        <p>Бесплатно</p>
+                        <p>г. Москва, ул. Сладкая, 15</p>
+                        <p>Время: 8:00-21:00</p>
+                    </div>
+                    <div class="option">
+                        <h3>Курьерская доставка</h3>
+                        <p>300 руб. в пределах МКАД</p>
+                        <p>Бесплатно при заказе от 3000 руб.</p>
+                        <p>Время: 9:00-20:00</p>
+                    </div>
+                    <div class="option">
+                        <h3>Доставка по России</h3>
+                        <p>Рассчитывается индивидуально</p>
+                        <p>Срок: 3-7 дней</p>
+                        <p>Упаковка в термоконтейнер</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-form">
+                <h2>Форма заказа</h2>
+                <form onsubmit="submitOrder(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ФИО *</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон *</label>
+                            <input type="tel" name="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Адрес доставки</label>
+                        <input type="text" name="address">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Дата доставки</label>
+                            <input type="date" name="delivery-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Время доставки</label>
+                            <select name="delivery-time" required>
+                                <option value="10:00-12:00">10:00-12:00</option>
+                                <option value="12:00-14:00">12:00-14:00</option>
+                                <option value="14:00-16:00">14:00-16:00</option>
+                                <option value="16:00-18:00">16:00-18:00</option>
+                                <option value="18:00-20:00">18:00-20:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Способ оплаты</label>
+                        <select name="payment-method" required>
+                            <option value="cash">Наличные при получении</option>
+                            <option value="card">Карта при получении</option>
+                            <option value="online">Онлайн оплата</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Комментарий к заказу</label>
+                        <textarea name="comments" rows="3"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Оформить заказ</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
