@@ -1,16 +1,16 @@
 name: Telegram Bot Runner
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Ручной запуск
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '*/25 * * * *'  # Запуск каждые 25 минут
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 24  # На 1 минуту меньше чем интервал
     
     steps:
     - name: 📥 Клонирование репозитория
@@ -20,43 +20,20 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
+        cache: 'npm'
         
     - name: 📦 Установка зависимостей
       run: npm install
       
-    - name: 🐳 Установка ngrok (для туннеля)
+    - name: 🤖 Запуск Telegram бота
       run: |
-        wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-        unzip -o ngrok-stable-linux-amd64.zip
-        ./ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+        echo "🚀 Запуск бота в $(date)"
+        echo "Токен установлен: ${#TELEGRAM_BOT_TOKEN} символов"
         
-    - name: 🤖 Запуск бота и туннеля
-      run: |
-        # Запускаем бот в фоне
-        node bot.js &
-        BOT_PID=$!
+        # Запускаем бота с таймаутом 23 минуты
+        timeout 1380 node bot.js || true
         
-        # Запускаем ngrok туннель
-        ./ngrok http 3000 > /dev/null &
-        NGROK_PID=$!
-        
-        # Ждем запуска ngrok
-        sleep 5
-        
-        # Получаем публичный URL
-        NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-        
-        if [ -z "$NGROK_URL" ] || [ "$NGROK_URL" = "null" ]; then
-          echo "❌ Не удалось получить ngrok URL"
-          exit 1
-        fi
-        
-        echo "✅ Ngrok туннель: $NGROK_URL"
-        echo "🌐 Вебхук URL: $NGROK_URL/bot${{ secrets.TELEGRAM_BOT_TOKEN }}"
-        
-        # Ждем завершения работы
-        wait $BOT_PID
+        echo "⏰ Бот завершен, перезапуск через 2 минуты"
         
       env:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
