@@ -3,54 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кондитерский магазин "Сладости"</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sweet Delights - Кондитерская</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
-                    <i class="fas fa-birthday-cake"></i>
-                    <h1>Кондитерский магазин "Сладости"</h1>
-                </div>
-                <ul class="nav-links">
+                <a href="index.html" class="logo">Sweet Delights</a>
+                <ul class="nav-menu">
                     <li><a href="index.html">Главная</a></li>
-                    <li><a href="products.html">Товары</a></li>
-                    <li><a href="order.html">Заказ и доставка</a></li>
                     <li><a href="about.html">О магазине</a></li>
-                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="products.html">Продукция</a></li>
+                    <li><a href="order.html">Заказ и доставка</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main>
+    <main class="container">
         <section class="hero">
-            <div class="container">
-                <h2>Самые вкусные десерты в городе</h2>
-                <p>Торты, пирожные, десерты ручной работы из натуральных ингредиентов</p>
-                <a href="products.html" class="btn">Смотреть каталог</a>
-            </div>
+            <h1>Добро пожаловать в мир сладких наслаждений!</h1>
+            <p>Самые вкусные десерты ручной работы для ваших особенных моментов</p>
+            <a href="products.html" class="btn">Посмотреть каталог</a>
         </section>
 
         <section class="features">
-            <div class="container">
-                <div class="feature">
-                    <i class="fas fa-truck"></i>
-                    <h3>Быстрая доставка</h3>
-                    <p>Доставим ваш заказ в течение 2-х часов</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-award"></i>
-                    <h3>Высокое качество</h3>
-                    <p>Только свежие и натуральные ингредиенты</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-percentage"></i>
-                    <h3>Скидки</h3>
-                    <p>Постоянным клиентам скидка 10%</p>
+            <div class="feature">
+                <i class="fas fa-birthday-cake"></i>
+                <h3>Авторские торты</h3>
+                <p>Уникальные дизайны на любой вкус</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Быстрая доставка</h3>
+                <p>Доставим свежий десерт вовремя</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-heart"></i>
+                <h3>Натуральные ингредиенты</h3>
+                <p>Только качественные продукты</p>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <h2>Мы находимся здесь</h2>
+            <div id="map" class="map">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Москва, ул. Сладкая, 15</p>
+                    <p>Ежедневно с 9:00 до 21:00</p>
                 </div>
             </div>
         </section>
@@ -58,8 +61,30 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Кондитерский магазин "Сладости". Все права защищены.</p>
-            <p>Телефон: +7 (XXX) XXX-XX-XX | Email: info@confectionery-shop.ru</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@sweetdelights.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Сладкая, 15</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Ссылки</h3>
+                    <ul>
+                        <li><a href="about.html">О магазине</a></li>
+                        <li><a href="products.html">Каталог</a></li>
+                        <li><a href="order.html">Доставка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Социальные сети</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
