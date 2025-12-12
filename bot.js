@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const productsDatabase = require('./products.js');
+const productsDatabase = require('./database.js');
 
 // === ВНИМАНИЕ! НАСТРОЙКА ТОКЕНА ===
 // НАШ ТОКЕН БУДЕТ АВТОМАТИЧЕСКИ ПОДСТАВЛЕН ИЗ СЕКРЕТОВ GITHUB
